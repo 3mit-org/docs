@@ -1,0 +1,614 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diagrama de Dependencias 3D</title>
+    <style>
+    body { margin: 0; font-family: sans-serif; }
+    #3d-graph {
+        position: absolute; width: 100%; height: 100%;
+        background-color: #000011;
+    }
+    .info-panel {
+        position: absolute; top: 10px; left: 10px; color: white;
+        background-color: rgba(0,0,0,0.5); padding: 10px; border-radius: 5px;
+    }
+    </style>
+    <script src="https://unpkg.com/3d-force-graph"></script>
+</head>
+<body>
+    <div class="info-panel">
+    <h3>Leyenda</h3>
+    <p><span style="color: gold;">■</span> Origen</p>
+    <p><span style="color: hsl(294, 100%, 50%);">■</span> Dependencia</p>
+    <p><span style="color: #4000ff;">■</span> Módulo 3MIT</p>
+    </div>
+    <div id="3d-graph"></div>
+    <script type="module">
+    import SpriteText from "https://esm.sh/three-spritetext";
+    // CORRECCIÓN: Los datos se incrustan directamente en una variable
+    const graphData = {
+"nodes": [
+{
+"id": "Enterprise",
+"group": 1,
+"name": "Enterprise",
+"nodeColor": "blue"
+},
+{
+"id": "Community",
+"group": 1,
+"name": "Community"
+},
+{
+"id": "base",
+"group": 2,
+"name": "base"
+},
+{
+"id": "3mit_exchange_diff",
+"group": 3,
+"name": "3mit_exchange_diff"
+},
+{
+"id": "3mit_multicurrency",
+"group": 3,
+"name": "3mit_multicurrency"
+},
+{
+"id": "account",
+"group": 2,
+"name": "account"
+},
+{
+"id": "3mit_igtf",
+"group": 3,
+"name": "3mit_igtf"
+},
+{
+"id": "3mit_l10n_ve",
+"group": 3,
+"name": "3mit_l10n_ve"
+},
+{
+"id": "3mit_igtf_invoice",
+"group": 3,
+"name": "3mit_igtf_invoice"
+},
+{
+"id": "l10n_latam_base",
+"group": 2,
+"name": "l10n_latam_base"
+},
+{
+"id": "account_debit_note",
+"group": 2,
+"name": "account_debit_note"
+},
+{
+"id": "contacts",
+"group": 2,
+"name": "contacts"
+},
+{
+"id": "account_reports",
+"group": 2,
+"name": "account_reports"
+},
+{
+"id": "account_asset",
+"group": 2,
+"name": "account_asset"
+},
+{
+"id": "purchase",
+"group": 2,
+"name": "purchase"
+},
+{
+"id": "stock",
+"group": 2,
+"name": "stock"
+},
+{
+"id": "stock_account",
+"group": 2,
+"name": "stock_account"
+},
+{
+"id": "sale_management",
+"group": 2,
+"name": "sale_management"
+},
+{
+"id": "openpyxl",
+"group": 2,
+"name": "openpyxl"
+},
+{
+"id": "pandas",
+"group": 2,
+"name": "pandas"
+},
+{
+"id": "3mit_massive_payments",
+"group": 3,
+"name": "3mit_massive_payments"
+},
+{
+"id": "3mit_mood_developer_restriction",
+"group": 3,
+"name": "3mit_mood_developer_restriction"
+},
+{
+"id": "web",
+"group": 2,
+"name": "web"
+},
+{
+"id": "sale",
+"group": 2,
+"name": "sale"
+},
+{
+"id": "product",
+"group": 2,
+"name": "product"
+},
+{
+"id": "account_budget",
+"group": 2,
+"name": "account_budget"
+},
+{
+"id": "analytic",
+"group": 2,
+"name": "analytic"
+},
+{
+"id": "3mit_multicurrency_igtf",
+"group": 3,
+"name": "3mit_multicurrency_igtf"
+},
+{
+"id": "3mit_multicurrency_pos",
+"group": 3,
+"name": "3mit_multicurrency_pos"
+},
+{
+"id": "point_of_sale",
+"group": 2,
+"name": "point_of_sale"
+},
+{
+"id": "3mit_multicurrency_report",
+"group": 3,
+"name": "3mit_multicurrency_report"
+},
+{
+"id": "3mit_multicurrency_stock_land",
+"group": 3,
+"name": "3mit_multicurrency_stock_land"
+},
+{
+"id": "stock_landed_costs",
+"group": 2,
+"name": "stock_landed_costs"
+},
+{
+"id": "3mit_odoo_studio_restriction",
+"group": 3,
+"name": "3mit_odoo_studio_restriction"
+},
+{
+"id": "web_studio",
+"group": 2,
+"name": "web_studio"
+},
+{
+"id": "3mit_pos_print_fiscal",
+"group": 3,
+"name": "3mit_pos_print_fiscal"
+},
+{
+"id": "3mit_procert_provider",
+"group": 3,
+"name": "3mit_procert_provider"
+},
+{
+"id": "3mit_bank_statements",
+"group": 3,
+"name": "3mit_bank_statements",
+},
+{
+"id": "account_bank_statement_import",
+"group": 2,
+"name": "account_bank_statement_import"
+}
+],
+"links": [
+{
+"source": "base",
+"target": "3mit_exchange_diff"
+},
+{
+"source": "Community",
+"target": "base"
+},
+{
+"source": "3mit_multicurrency",
+"target": "3mit_exchange_diff"
+},
+{
+"source": "account",
+"target": "3mit_igtf"
+},
+{
+"source": "Community",
+"target": "account"
+},
+{
+"source": "3mit_l10n_ve",
+"target": "3mit_igtf"
+},
+{
+"source": "3mit_igtf",
+"target": "3mit_igtf_invoice"
+},
+{
+"source": "base",
+"target": "3mit_l10n_ve"
+},
+{
+"source": "Community",
+"target": "base"
+},
+{
+"source": "account",
+"target": "3mit_l10n_ve"
+},
+{
+"source": "Community",
+"target": "account"
+},
+{
+"source": "l10n_latam_base",
+"target": "3mit_l10n_ve"
+},
+{
+"source": "Community",
+"target": "l10n_latam_base"
+},
+{
+"source": "account_debit_note",
+"target": "3mit_l10n_ve"
+},
+{
+"source": "Community",
+"target": "account_debit_note"
+},
+{
+"source": "contacts",
+"target": "3mit_l10n_ve"
+},
+{
+"source": "Community",
+"target": "contacts"
+},
+{
+"source": "account_reports",
+"target": "3mit_l10n_ve"
+},
+{
+"source": "Enterprise",
+"target": "account_reports"
+},
+{
+"source": "account_asset",
+"target": "3mit_l10n_ve"
+},
+{
+"source": "Enterprise",
+"target": "account_asset"
+},
+{
+"source": "purchase",
+"target": "3mit_l10n_ve"
+},
+{
+"source": "Community",
+"target": "purchase"
+},
+{
+"source": "stock",
+"target": "3mit_l10n_ve"
+},
+{
+"source": "Community",
+"target": "stock"
+},
+{
+"source": "stock_account",
+"target": "3mit_l10n_ve"
+},
+{
+"source": "Community",
+"target": "stock_account"
+},
+{
+"source": "sale_management",
+"target": "3mit_l10n_ve"
+},
+{
+"source": "Community",
+"target": "sale_management"
+},
+{
+"source": "openpyxl",
+"target": "3mit_l10n_ve"
+},
+{
+"source": "pandas",
+"target": "3mit_l10n_ve"
+},
+{
+"source": "3mit_l10n_ve",
+"target": "3mit_massive_payments"
+},
+{
+"source": "base",
+"target": "3mit_mood_developer_restriction"
+},
+{
+"source": "Community",
+"target": "base"
+},
+{
+"source": "web",
+"target": "3mit_mood_developer_restriction"
+},
+{
+"source": "Community",
+"target": "web"
+},
+{
+"source": "base",
+"target": "3mit_multicurrency"
+},
+{
+"source": "Community",
+"target": "base"
+},
+{
+"source": "account",
+"target": "3mit_multicurrency"
+},
+{
+"source": "Community",
+"target": "account"
+},
+{
+"source": "account_asset",
+"target": "3mit_multicurrency"
+},
+{
+"source": "Enterprise",
+"target": "account_asset"
+},
+{
+"source": "3mit_l10n_ve",
+"target": "3mit_multicurrency"
+},
+{
+"source": "purchase",
+"target": "3mit_multicurrency"
+},
+{
+"source": "Community",
+"target": "purchase"
+},
+{
+"source": "sale",
+"target": "3mit_multicurrency"
+},
+{
+"source": "Community",
+"target": "sale"
+},
+{
+"source": "product",
+"target": "3mit_multicurrency"
+},
+{
+"source": "Community",
+"target": "product"
+},
+{
+"source": "stock",
+"target": "3mit_multicurrency"
+},
+{
+"source": "Community",
+"target": "stock"
+},
+{
+"source": "stock_account",
+"target": "3mit_multicurrency"
+},
+{
+"source": "Community",
+"target": "stock_account"
+},
+{
+"source": "account_budget",
+"target": "3mit_multicurrency"
+},
+{
+"source": "Enterprise",
+"target": "account_budget"
+},
+{
+"source": "analytic",
+"target": "3mit_multicurrency"
+},
+{
+"source": "Community",
+"target": "analytic"
+},
+{
+"source": "3mit_igtf",
+"target": "3mit_multicurrency_igtf"
+},
+{
+"source": "3mit_multicurrency",
+"target": "3mit_multicurrency_igtf"
+},
+{
+"source": "base",
+"target": "3mit_multicurrency_pos"
+},
+{
+"source": "Community",
+"target": "base"
+},
+{
+"source": "point_of_sale",
+"target": "3mit_multicurrency_pos"
+},
+{
+"source": "Community",
+"target": "point_of_sale"
+},
+{
+"source": "3mit_multicurrency",
+"target": "3mit_multicurrency_pos"
+},
+{
+"source": "base",
+"target": "3mit_multicurrency_report"
+},
+{
+"source": "Community",
+"target": "base"
+},
+{
+"source": "account",
+"target": "3mit_multicurrency_report"
+},
+{
+"source": "Community",
+"target": "account"
+},
+{
+"source": "account_asset",
+"target": "3mit_multicurrency_report"
+},
+{
+"source": "Enterprise",
+"target": "account_asset"
+},
+{
+"source": "account_reports",
+"target": "3mit_multicurrency_report"
+},
+{
+"source": "Enterprise",
+"target": "account_reports"
+},
+{
+"source": "3mit_multicurrency",
+"target": "3mit_multicurrency_report"
+},
+{
+"source": "3mit_multicurrency",
+"target": "3mit_multicurrency_stock_land"
+},
+{
+"source": "stock_landed_costs",
+"target": "3mit_multicurrency_stock_land"
+},
+{
+"source": "Community",
+"target": "stock_landed_costs"
+},
+{
+"source": "base",
+"target": "3mit_odoo_studio_restriction"
+},
+{
+"source": "Community",
+"target": "base"
+},
+{
+"source": "web_studio",
+"target": "3mit_odoo_studio_restriction"
+},
+{
+"source": "Enterprise",
+"target": "web_studio"
+},
+{
+"source": "point_of_sale",
+"target": "3mit_pos_print_fiscal"
+},
+{
+"source": "Community",
+"target": "point_of_sale"
+},
+{
+"source": "base",
+"target": "3mit_procert_provider"
+},
+{
+"source": "Community",
+"target": "base"
+},
+{
+"source": "account",
+"target": "3mit_procert_provider"
+},
+{
+"source": "Community",
+"target": "account"
+},
+{
+"source": "3mit_l10n_ve",
+"target": "3mit_procert_provider"
+},
+{
+"source": "account_bank_statement_import",
+"target": "Enterprise"
+},
+{
+"source": "3mit_bank_statements",
+"target": "3mit_multicurrency"
+},
+{
+"source": "3mit_bank_statements",
+"target": "account_bank_statement_import"
+}
+]
+};
+    const groupColors = { 1: 'gold', 2: 'hsl(294, 100%, 50%)', 3: 'blue' };
+    const graph = ForceGraph3D()(document.getElementById('3d-graph'))
+        .graphData(graphData) // Usamos la variable local en lugar de fetch
+        .nodeAutoColorBy('group')
+        .nodeLabel('name')
+        .linkColor('black')
+        .linkOpacity(0.7)
+        .nodeColor(node => groupColors[node.group] || 'grey')
+        .nodeThreeObject((node) => {
+                    const sprite = new SpriteText(node.id);
+                    sprite.material.depthWrite = false; // make sprite background transparent
+                    sprite.color = groupColors[node.group] || 'grey';
+                    sprite.textHeight = 2.5;
+                    sprite.center.y = 2.5; // shift above node
+                    return sprite;
+                    })
+        .nodeThreeObjectExtend(true)
+        .linkDirectionalParticles(1)
+        .linkWidth(0.5)
+        .backgroundColor('white');
+    </script>
+</body>
+</html>
